@@ -1,0 +1,26 @@
+<annotation>
+	<folder>all_images_2</folder>
+	<filename>img_1 (11).jpg</filename>
+	<path>C:\DATASET\all_images_2\img_1 (11).jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>2064</width>
+		<height>976</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>bulged</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>910</xmin>
+			<ymin>325</ymin>
+			<xmax>1506</xmax>
+			<ymax>639</ymax>
+		</bndbox>
+	</object>
+</annotation>

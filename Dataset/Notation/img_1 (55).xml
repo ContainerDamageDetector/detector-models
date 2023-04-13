@@ -1,0 +1,38 @@
+<annotation>
+	<folder>all_images_2</folder>
+	<filename>img_1 (55).jpg</filename>
+	<path>C:\DATASET\all_images_2\img_1 (55).jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>488</width>
+		<height>1032</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>rust</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>222</xmin>
+			<ymin>546</ymin>
+			<xmax>265</xmax>
+			<ymax>577</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>rust</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>415</xmin>
+			<ymin>610</ymin>
+			<xmax>476</xmax>
+			<ymax>724</ymax>
+		</bndbox>
+	</object>
+</annotation>

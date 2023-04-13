@@ -1,0 +1,26 @@
+<annotation>
+	<folder>all_images_2</folder>
+	<filename>img_1 (193).jpg</filename>
+	<path>C:\DATASET\all_images_2\img_1 (193).jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>3264</width>
+		<height>2448</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>cut</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>958</xmin>
+			<ymin>942</ymin>
+			<xmax>2655</xmax>
+			<ymax>2442</ymax>
+		</bndbox>
+	</object>
+</annotation>

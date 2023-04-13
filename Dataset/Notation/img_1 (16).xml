@@ -1,0 +1,38 @@
+<annotation>
+	<folder>all_images_2</folder>
+	<filename>img_1 (16).jpg</filename>
+	<path>C:\DATASET\all_images_2\img_1 (16).jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1560</width>
+		<height>2080</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>bulged</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>802</xmin>
+			<ymin>406</ymin>
+			<xmax>1121</xmax>
+			<ymax>1071</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>dented</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>584</xmin>
+			<ymin>1248</ymin>
+			<xmax>978</xmax>
+			<ymax>1874</ymax>
+		</bndbox>
+	</object>
+</annotation>

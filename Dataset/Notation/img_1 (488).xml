@@ -1,0 +1,38 @@
+<annotation>
+	<folder>data_damage_types</folder>
+	<filename>img_1 (488).jpg</filename>
+	<path>C:\IIT\FYP\DataSet\data_damage_types\img_1 (488).jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1200</width>
+		<height>1600</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>dented</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>802</xmin>
+			<ymin>1135</ymin>
+			<xmax>1057</xmax>
+			<ymax>1435</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>rust</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>835</xmin>
+			<ymin>333</ymin>
+			<xmax>987</xmax>
+			<ymax>1159</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,50 @@
+<annotation>
+	<folder>all_images_2</folder>
+	<filename>img_1 (31).jpg</filename>
+	<path>C:\DATASET\all_images_2\img_1 (31).jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1200</width>
+		<height>1600</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>dented</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>66</xmin>
+			<ymin>1137</ymin>
+			<xmax>179</xmax>
+			<ymax>1213</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>dented</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>226</xmin>
+			<ymin>1102</ymin>
+			<xmax>328</xmax>
+			<ymax>1213</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>dented</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>363</xmin>
+			<ymin>1087</ymin>
+			<xmax>711</xmax>
+			<ymax>1153</ymax>
+		</bndbox>
+	</object>
+</annotation>
