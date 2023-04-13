@@ -1,0 +1,5 @@
+bulged
+cut
+dented
+hole
+rust

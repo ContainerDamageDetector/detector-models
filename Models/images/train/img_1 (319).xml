@@ -1,0 +1,26 @@
+<annotation>
+	<folder>data_damage_types</folder>
+	<filename>img_1 (319).jpg</filename>
+	<path>C:\IIT\FYP\DataSet\data_damage_types\img_1 (319).jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>780</width>
+		<height>1040</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>cut</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>261</xmin>
+			<ymin>169</ymin>
+			<xmax>455</xmax>
+			<ymax>551</ymax>
+		</bndbox>
+	</object>
+</annotation>

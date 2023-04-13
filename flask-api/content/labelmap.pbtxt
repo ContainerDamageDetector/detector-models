@@ -1,0 +1,24 @@
+item {
+    id: 1
+    name: 'bulged'
+}
+
+item {
+    id: 2
+    name: 'dented'
+}
+
+item {
+    id: 3
+    name: 'cut'
+}
+
+item {
+    id: 4
+    name: 'hole'
+}
+
+item {
+    id: 5
+    name: 'rust'
+}
