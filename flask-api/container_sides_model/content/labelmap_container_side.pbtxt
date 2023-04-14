@@ -1,0 +1,28 @@
+item {
+  id:1
+  name:'left_side'
+}
+item {
+  id:2
+  name:'right_side'
+}
+item {
+  id:3
+  name:'front_side'
+}
+item {
+  id:4
+  name:'rear_side'
+}
+item {
+  id:5
+  name:'top_side'
+}
+item {
+  id:6
+  name:'bottom_side'
+}
+item {
+  id:7
+  name:'corner_post'
+}
