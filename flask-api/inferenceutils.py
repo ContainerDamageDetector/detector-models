@@ -6,6 +6,8 @@ import six
 import time
 import glob
 from IPython.display import display
+import json
+
 
 from six import BytesIO
 
@@ -23,6 +25,12 @@ os.environ['AWS_SECRET_ACCESS_KEY'] = 'K7YgRnpH0xvicuGwTNKcUMK2PswG497aoAok6gSp'
 os.environ['AWS_REGION'] = 'ap-south-1';
 os.environ['S3_USE_HTTPS'] = '1';
 os.environ['S3_VERIFY_SSL'] = '1';
+os.environ['TF_CONFIG'] = json.dumps({
+    'cluster': {
+        'worker': ["localhost:0"]
+    },
+    'task': {'type': 'worker', 'index': 0}
+})
 
 
 def load_image_into_numpy_array(path):
