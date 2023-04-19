@@ -4,6 +4,9 @@ from flask import request
 import json
 import pandas as pd
 import xgboost as xg
+import boto3
+import xgboost as xgb
+from urllib.parse import urlparse
 from xgboost import XGBRegressor
 from matplotlib import style
 style.use('seaborn')
@@ -28,6 +31,19 @@ def predictImageData_damage_type(image_name):
     image_np = load_image_into_numpy_array(image_name)
     output_dict = run_inference_for_single_image(model_damage_type, image_np)
     im_width, im_height = Image.fromarray(image_np).size
+    vis_util.visualize_boxes_and_labels_on_image_array(
+        image_np,
+        output_dict['detection_boxes'],
+        output_dict['detection_classes'],
+        output_dict['detection_scores'],
+        category_index_damage_type,
+        instance_masks=output_dict.get('detection_masks_reframed', None),
+        use_normalized_coordinates=True,
+        line_thickness=8)
+
+    # display damaged area
+    # (Image.fromarray(image_np)).show()
+
     print('height- ', im_height)
     print('width- ', im_width)
     # This is the way I'm getting my coordinates
@@ -471,6 +487,9 @@ def predictRecoverPrice(image_name, bulged_dice=None, cut_dice=None, dented_dice
         print('corner_post', corner_post)
         print('unknown_container_side', unknown_container_side)
 
+    model = xgb.Booster()
+    model.load_model('recover_price/saved_model.model')
+
     data = {'bulged_dice': bulged_dice, 'cut_dice': cut_dice, 'dented_dice': dented_dice, 'hole_dice': hole_dice,
             'rust_dice': rust_dice, 'bulged': bulged, 'cut': cut, 'dented': dented, 'hole': hole, 'rust': rust,
             'unknown_damage_type': unknown_damage_type, 'minor': minor, 'moderate': moderate, 'severe': severe,
@@ -479,27 +498,13 @@ def predictRecoverPrice(image_name, bulged_dice=None, cut_dice=None, dented_dice
             'corner_post': corner_post, 'unknown_container_side': unknown_container_side}
     index = [0]
     new_df = pd.DataFrame(data, index)
-    new_df
+    new_data_matrix = xgb.DMatrix(data=new_df)
 
-    # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-    # X_train = scaler.fit_transform(X_train)
-    # X_test = scaler.transform(X_test)
-    #
-    # xgb = XGBRegressor()
-    # xgb.fit(X_train, y_train)
-    # xgb_pred = xgb.predict(X_test)
-    # xgb_score = cross_val_score(xgb, X_test, y_test, cv=4)
-    # print("Linear Regression model accuracy is: {}".format(xgb_score.mean() * 100))
+    new_pred = model.predict(new_data_matrix)
+    print("The container price : ", new_pred)
 
-    model = XGBRegressor()
-    # model.fit(X_train, y_train)
-
-
-
-    new_pred = model.predict(new_df)
-    print("The container price for new data is : ", new_pred)
     return {
-        "new_pred": new_pred
+        "new_pred": {new_pred}
     }
 
 app = flask.Flask(__name__)
@@ -514,8 +519,20 @@ def home():
 
 @app.route('/predictDamageType', methods=['POST'])
 def predict_damage_type():
+    s3 = boto3.resource('s3')
+
     url = request.form.get('url')
-    data = predictImageData_damage_type(url)
+    parsed_url = urlparse(url)
+    bucket_name = 'container-damage-detector'
+    key = parsed_url.path.lstrip('/')
+    print(key)
+
+    local_filename = (f'images/damage_type/{key.split("/")[-1]}')
+
+    print(local_filename)
+    s3.Bucket(bucket_name).download_file(key, local_filename)
+
+    data = predictImageData_damage_type(local_filename)
 
     response = app.response_class(
         response=json.dumps(data),
@@ -526,8 +543,20 @@ def predict_damage_type():
 
 @app.route('/predictSevereType', methods=['POST'])
 def predict_severity_type():
+    s3 = boto3.resource('s3')
+
     url = request.form.get('url')
-    data = predictImageData_severity_type(url)
+    parsed_url = urlparse(url)
+    bucket_name = 'container-damage-detector'
+    key = parsed_url.path.lstrip('/')
+    print(key)
+
+    local_filename = (f'images/severe_type/{key.split("/")[-1]}')
+
+    print(local_filename)
+    s3.Bucket(bucket_name).download_file(key, local_filename)
+
+    data = predictImageData_severity_type(local_filename)
 
     response = app.response_class(
         response=json.dumps(data),
@@ -537,8 +566,20 @@ def predict_severity_type():
 
 @app.route('/predictContainerSides', methods=['POST'])
 def predict_container_side():
+    s3 = boto3.resource('s3')
+
     url = request.form.get('url')
-    data = predictImageData_container_side(url)
+    parsed_url = urlparse(url)
+    bucket_name = 'container-damage-detector'
+    key = parsed_url.path.lstrip('/')
+    print(key)
+
+    local_filename = (f'images/container_sides/{key.split("/")[-1]}')
+
+    print(local_filename)
+    s3.Bucket(bucket_name).download_file(key, local_filename)
+
+    data = predictImageData_container_side(local_filename)
 
     response = app.response_class(
         response=json.dumps(data),
@@ -548,8 +589,20 @@ def predict_container_side():
 
 @app.route('/estimateRecoverPrice', methods=['POST'])
 def estimate_recover_price():
+    s3 = boto3.resource('s3')
+
     url = request.form.get('url')
-    data = predictRecoverPrice(url)
+    parsed_url = urlparse(url)
+    bucket_name = 'container-damage-detector'
+    key = parsed_url.path.lstrip('/')
+    print(key)
+
+    local_filename = (f'images/recover_price/{key.split("/")[-1]}')
+
+    print(local_filename)
+    s3.Bucket(bucket_name).download_file(key, local_filename)
+
+    data = predictRecoverPrice(local_filename)
 
     response = app.response_class(
         response=json.dumps(data),

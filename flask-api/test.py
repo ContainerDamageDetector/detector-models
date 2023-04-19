@@ -1,6 +1,8 @@
 import flask
 from flask import request
 import pandas as pd
+import boto3
+from urllib.parse import urlparse
 from matplotlib import style
 style.use('seaborn')
 import xgboost as xgb
@@ -385,10 +387,10 @@ def predictRecoverPrice(image_name, bulged_dice=None, cut_dice=None, dented_dice
     new_data_matrix = xgb.DMatrix(data=new_df)
 
     new_pred = model.predict(new_data_matrix)
-    print("The container price for new data is : ", new_pred)
+    print("The container price : ", new_pred)
 
     return {
-        "new_pred": new_pred
+        "new_pred": {new_pred}
     }
 
 app = flask.Flask(__name__)
@@ -402,12 +404,28 @@ def home():
 
 @app.route('/estimateRecoverPrice', methods=['POST'])
 def estimate_recover_price():
+    s3 = boto3.resource('s3')
+
     url = request.form.get('url')
-    data = predictRecoverPrice(url)
+    parsed_url = urlparse(url)
+    bucket_name = 'container-damage-detector'
+    key = parsed_url.path.lstrip('/')
+    print(key)
 
-    # Convert data to a Numpy array
-    # data_array = np.array(data)
-    price = np.array2string(data)
-    return price
+    local_filename = (f'images/recover_price/{key.split("/")[-1]}')
 
-app.run()
+    print(local_filename)
+    s3.Bucket(bucket_name).download_file(key, local_filename)
+
+    data = predictRecoverPrice(local_filename)
+    # data_list = data.tolist()
+    # json_data = json.dumps(data_list)
+    # response = {"data": data}
+
+    response = app.response_class(
+        response=json.dumps(data),
+        mimetype='application/json'
+    )
+    return response
+
+app.run(port=6000)

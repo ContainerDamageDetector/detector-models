@@ -1,14 +1,11 @@
 import flask
-from flask import request
-import json
 from matplotlib import style
 style.use('seaborn')
 import boto3
-import requests
-from io import BytesIO
+from flask import  jsonify, request
+from urllib.parse import urlparse
 
 from inferenceutils import *
-bucket_name = 'container-damage-detector'
 
 output_directory = 'inference_graph'
 labelmap_path_damage_type = 'damage_type_model/content/labelmap_damage_type.pbtxt'
@@ -22,6 +19,20 @@ def predictImageData_damage_type(image_name):
     image_np = load_image_into_numpy_array(image_name)
     output_dict = run_inference_for_single_image(model_damage_type, image_np)
     im_width, im_height = Image.fromarray(image_np).size
+    vis_util.visualize_boxes_and_labels_on_image_array(
+        image_np,
+        output_dict['detection_boxes'],
+        output_dict['detection_classes'],
+        output_dict['detection_scores'],
+        category_index_damage_type,
+        instance_masks=output_dict.get('detection_masks_reframed', None),
+        use_normalized_coordinates=True,
+        line_thickness=8)
+
+    # display damaged area
+    # (Image.fromarray(image_np)).show()
+
+
     print('height- ', im_height)
     print('width- ', im_width)
     # This is the way I'm getting my coordinates
@@ -50,6 +61,9 @@ def predictImageData_damage_type(image_name):
         "regions": data
     }
 
+
+s3 = boto3.client('s3')
+
 app = flask.Flask(__name__)
 
 
@@ -62,15 +76,26 @@ def home():
 
 @app.route('/predictDamageType', methods=['POST'])
 def predict_damage_type():
+
+    s3 = boto3.resource('s3')
+
     url = request.form.get('url')
-    data = predictImageData_damage_type(url)
+    parsed_url = urlparse(url)
+    bucket_name = 'container-damage-detector'
+    key = parsed_url.path.lstrip('/')
+    print(key)
+
+    local_filename = (f'images/damage_type/{key.split("/")[-1]}')
+
+    print(local_filename)
+    s3.Bucket(bucket_name).download_file(key, local_filename)
+
+    data = predictImageData_damage_type(local_filename)
 
     response = app.response_class(
         response=json.dumps(data),
         mimetype='application/json'
     )
     return response
-
-
 
 app.run()
