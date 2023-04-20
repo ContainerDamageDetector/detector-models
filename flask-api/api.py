@@ -27,8 +27,8 @@ model_damage_type = tf.saved_model.load(f'damage_type_model/content/{output_dire
 model_severity_type = tf.saved_model.load(f'severity_type_model/content/{output_directory}/saved_model')
 model_container_sides = tf.saved_model.load(f'container_sides_model/content/{output_directory}/saved_model')
 
-def predictImageData_damage_type(image_name):
-    image_np = load_image_into_numpy_array(image_name)
+def predictImageData_damage_type(s3_bucket, s3_key):
+    image_np = load_image_into_numpy_array(s3_bucket, s3_key)
     output_dict = run_inference_for_single_image(model_damage_type, image_np)
     im_width, im_height = Image.fromarray(image_np).size
     vis_util.visualize_boxes_and_labels_on_image_array(
@@ -44,6 +44,7 @@ def predictImageData_damage_type(image_name):
     # display damaged area
     # (Image.fromarray(image_np)).show()
 
+
     print('height- ', im_height)
     print('width- ', im_width)
     # This is the way I'm getting my coordinates
@@ -54,26 +55,19 @@ def predictImageData_damage_type(image_name):
     scores = output_dict['detection_scores']
     # this is set as a default but feel free to adjust it to your needs
     min_score_thresh = .5
-    data = []
+    data = ()
     # iterate over all objects found
     for i in range(min(max_boxes_to_draw, boxes.shape[0])):
         if scores is None or scores[i] > min_score_thresh:
             # boxes[i] is the box which will be drawn
             class_name_damage_type = category_index_damage_type[output_dict['detection_classes'][i]]['name']
             print("This box is gonna get used", boxes[i], output_dict['detection_classes'][i])
-            data.append({
-                "box": boxes[i].tolist(),
-                "class": int(output_dict['detection_classes'][i]),
-                "class_name": class_name_damage_type
-            })
-    return {
-        "width": im_width,
-        "height": im_height,
-        "regions": data
-    }
+            data = class_name_damage_type
+    return data
 
-def predictImageData_severity_type(image_name):
-    image_np = load_image_into_numpy_array(image_name)
+
+def predictImageData_severity_type(s3_bucket, s3_key):
+    image_np = load_image_into_numpy_array(s3_bucket, s3_key)
     output_dict = run_inference_for_single_image(model_severity_type, image_np)
     im_width, im_height = Image.fromarray(image_np).size
     print('height- ', im_height)
@@ -86,27 +80,19 @@ def predictImageData_severity_type(image_name):
     scores = output_dict['detection_scores']
     # this is set as a default but feel free to adjust it to your needs
     min_score_thresh = .5
-    data = []
+    data = ()
     # iterate over all objects found
     for i in range(min(max_boxes_to_draw, boxes.shape[0])):
         if scores is None or scores[i] > min_score_thresh:
             # boxes[i] is the box which will be drawn
             class_name_severity = category_index_severity_type[output_dict['detection_classes'][i]]['name']
             print("This box is gonna get used", boxes[i], output_dict['detection_classes'][i])
-            data.append({
-                "box": boxes[i].tolist(),
-                "class": int(output_dict['detection_classes'][i]),
-                "class_name": class_name_severity
-            })
-    return {
-        "width": im_width,
-        "height": im_height,
-        "regions": data
-    }
+            data = class_name_severity
+    return data
 
-def predictImageData_container_side(image_name):
+def predictImageData_container_side(s3_bucket, s3_key):
 
-    image_np = load_image_into_numpy_array(image_name)
+    image_np = load_image_into_numpy_array(s3_bucket, s3_key)
     output_dict = run_inference_for_single_image(model_container_sides, image_np)
     im_width, im_height = Image.fromarray(image_np).size
     print('height- ', im_height)
@@ -138,11 +124,11 @@ def predictImageData_container_side(image_name):
     }
 
 
-def predictRecoverPrice(image_name, bulged_dice=None, cut_dice=None, dented_dice=None, hole_dice=None, rust_dice=None,
+def predictRecoverPrice(s3_bucket, s3_key, bulged_dice=None, cut_dice=None, dented_dice=None, hole_dice=None, rust_dice=None,
                         bulged=None, cut=None, dented=None, hole=None, rust=None, minor=None, moderate=None,
                         severe=None, left_side=None, right_side=None, front_side=None, rear_side=None, top_side=None,
                         bottom_side=None, corner_post=None):
-    image_np_damage_type = load_image_into_numpy_array(image_name)
+    image_np_damage_type = load_image_into_numpy_array(s3_bucket, s3_key)
     output_dict = run_inference_for_single_image(model_damage_type, image_np_damage_type)
     vis_util.visualize_boxes_and_labels_on_image_array(
         image_np_damage_type,
@@ -173,13 +159,13 @@ def predictRecoverPrice(image_name, bulged_dice=None, cut_dice=None, dented_dice
             class_name_damage_type = category_index_damage_type[output_dict['detection_classes'][i]]['name']
             cordinates_damage_type = boxes[i].tolist()
             # print ("This box is gonna get used", boxes[i], output_dict['detection_classes'][i])
-            print("The damage type of the image (", image_name, ") :", class_name_damage_type, " - ",
+            print("The damage type of the image (", s3_key, ") :", class_name_damage_type, " - ",
                   round(scores[i] * 100), "%")
             print("class_name_damage_type", class_name_damage_type)
             # print(cordinates_damage_type)
 
 
-    image_np_severity = load_image_into_numpy_array(image_name)
+    image_np_severity = load_image_into_numpy_array(s3_bucket, s3_key)
     output_dict = run_inference_for_single_image(model_severity_type, image_np_severity)
     vis_util.visualize_boxes_and_labels_on_image_array(
         image_np_severity,
@@ -210,14 +196,14 @@ def predictRecoverPrice(image_name, bulged_dice=None, cut_dice=None, dented_dice
             class_name_severity = category_index_severity_type[output_dict['detection_classes'][i]]['name']
             # print ("This box is gonna get used", boxes[i], output_dict['detection_classes'][i])
             cordinates_severity = boxes[i].tolist()
-            print("The severity of the image (", image_name, ") :", class_name_severity, " - ", round(scores[i] * 100),
+            print("The severity of the image (", s3_key, ") :", class_name_severity, " - ", round(scores[i] * 100),
                   "%")
             print("class_name_severity", class_name_severity)
             # print(cordinates_severity)
 
 
 
-    image_np_container_sides = load_image_into_numpy_array(image_name)
+    image_np_container_sides = load_image_into_numpy_array(s3_bucket, s3_key)
     output_dict = run_inference_for_single_image(model_container_sides, image_np_container_sides)
     vis_util.visualize_boxes_and_labels_on_image_array(
         image_np_container_sides,
@@ -248,7 +234,7 @@ def predictRecoverPrice(image_name, bulged_dice=None, cut_dice=None, dented_dice
             class_name_container_sides = category_index_container_sides[output_dict['detection_classes'][i]]['name']
             cordinates_container_sides = boxes[i].tolist()
             # print ("This box is gonna get used", boxes[i], output_dict['detection_classes'][i])
-            print("The container sides of the image (", image_name, ") :", class_name_container_sides, " - ",
+            print("The container sides of the image (", s3_key, ") :", class_name_container_sides, " - ",
                   round(scores[i] * 100), "%")
             print("class_name_container_sides", class_name_container_sides)
             # print(cordinates_container_sides)
@@ -503,9 +489,10 @@ def predictRecoverPrice(image_name, bulged_dice=None, cut_dice=None, dented_dice
     new_pred = model.predict(new_data_matrix)
     print("The container price : ", new_pred)
 
-    return {
-        "new_pred": {new_pred}
-    }
+    container_price = json.dumps(new_pred.tolist())
+    return container_price
+
+s3 = boto3.client('s3')
 
 app = flask.Flask(__name__)
 
@@ -519,20 +506,12 @@ def home():
 
 @app.route('/predictDamageType', methods=['POST'])
 def predict_damage_type():
-    s3 = boto3.resource('s3')
-
+    s3_bucket = 'container-damage-detector'
     url = request.form.get('url')
     parsed_url = urlparse(url)
-    bucket_name = 'container-damage-detector'
-    key = parsed_url.path.lstrip('/')
-    print(key)
+    s3_key = parsed_url.path.lstrip('/')
 
-    local_filename = (f'images/damage_type/{key.split("/")[-1]}')
-
-    print(local_filename)
-    s3.Bucket(bucket_name).download_file(key, local_filename)
-
-    data = predictImageData_damage_type(local_filename)
+    data = predictImageData_damage_type(s3_bucket, s3_key)
 
     response = app.response_class(
         response=json.dumps(data),
@@ -543,20 +522,12 @@ def predict_damage_type():
 
 @app.route('/predictSevereType', methods=['POST'])
 def predict_severity_type():
-    s3 = boto3.resource('s3')
-
+    s3_bucket = 'container-damage-detector'
     url = request.form.get('url')
     parsed_url = urlparse(url)
-    bucket_name = 'container-damage-detector'
-    key = parsed_url.path.lstrip('/')
-    print(key)
+    s3_key = parsed_url.path.lstrip('/')
 
-    local_filename = (f'images/severe_type/{key.split("/")[-1]}')
-
-    print(local_filename)
-    s3.Bucket(bucket_name).download_file(key, local_filename)
-
-    data = predictImageData_severity_type(local_filename)
+    data = predictImageData_severity_type(s3_bucket, s3_key)
 
     response = app.response_class(
         response=json.dumps(data),
@@ -566,20 +537,12 @@ def predict_severity_type():
 
 @app.route('/predictContainerSides', methods=['POST'])
 def predict_container_side():
-    s3 = boto3.resource('s3')
-
+    s3_bucket = 'container-damage-detector'
     url = request.form.get('url')
     parsed_url = urlparse(url)
-    bucket_name = 'container-damage-detector'
-    key = parsed_url.path.lstrip('/')
-    print(key)
+    s3_key = parsed_url.path.lstrip('/')
 
-    local_filename = (f'images/container_sides/{key.split("/")[-1]}')
-
-    print(local_filename)
-    s3.Bucket(bucket_name).download_file(key, local_filename)
-
-    data = predictImageData_container_side(local_filename)
+    data = predictImageData_container_side(s3_bucket, s3_key)
 
     response = app.response_class(
         response=json.dumps(data),
@@ -589,20 +552,12 @@ def predict_container_side():
 
 @app.route('/estimateRecoverPrice', methods=['POST'])
 def estimate_recover_price():
-    s3 = boto3.resource('s3')
-
+    s3_bucket = 'container-damage-detector'
     url = request.form.get('url')
     parsed_url = urlparse(url)
-    bucket_name = 'container-damage-detector'
-    key = parsed_url.path.lstrip('/')
-    print(key)
+    s3_key = parsed_url.path.lstrip('/')
 
-    local_filename = (f'images/recover_price/{key.split("/")[-1]}')
-
-    print(local_filename)
-    s3.Bucket(bucket_name).download_file(key, local_filename)
-
-    data = predictRecoverPrice(local_filename)
+    data = predictRecoverPrice(s3_bucket, s3_key)
 
     response = app.response_class(
         response=json.dumps(data),

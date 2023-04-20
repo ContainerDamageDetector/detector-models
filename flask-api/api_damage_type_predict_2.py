@@ -1,9 +1,14 @@
 import flask
 from matplotlib import style
 style.use('seaborn')
-import boto3
 from flask import  jsonify, request
 from urllib.parse import urlparse
+import boto3
+import numpy as np
+from PIL import Image
+from io import BytesIO
+from urllib.parse import urlparse
+
 
 from inferenceutils import *
 
@@ -14,6 +19,16 @@ category_index_damage_type = label_map_util.create_category_index_from_labelmap(
 tf.keras.backend.clear_session()
 
 model_damage_type = tf.saved_model.load(f'damage_type_model/content/{output_directory}/saved_model')
+
+
+
+s3 = boto3.client('s3')
+
+def load_image_into_numpy_array(s3_bucket, s3_key):
+    response = s3.get_object(Bucket=s3_bucket, Key=s3_key)
+    img = Image.open(BytesIO(response['Body'].read()))
+    (im_width, im_height) = img.size
+    return np.array(img.getdata()).reshape((im_height, im_width, 3)).astype(np.uint8)
 
 def predictImageData_damage_type(s3_bucket, s3_key):
     image_np = load_image_into_numpy_array(s3_bucket, s3_key)
@@ -77,21 +92,18 @@ def home():
 
 @app.route('/predictDamageType', methods=['POST'])
 def predict_damage_type():
+    # s3_bucket, s3_key
 
-    s3 = boto3.resource('s3')
-
+    s3_bucket = 'container-damage-detector'
     url = request.form.get('url')
     parsed_url = urlparse(url)
-    bucket_name = 'container-damage-detector'
-    key = parsed_url.path.lstrip('/')
-    print(key)
+    s3_key = parsed_url.path.lstrip('/')
 
-    local_filename = (f'images/damage_type/{key.split("/")[-1]}')
+    # s3_key = 's3://container-damage-detector/uploads/images/dcf72fde-ae83-41dd-bda2-86f1542fc96f.jpg'
+    # parsed_url = urlparse(s3_key)
+    # key = parsed_url.path.lstrip('/')
 
-    print(local_filename)
-    s3.Bucket(bucket_name).download_file(key, local_filename)
-
-    data = predictImageData_damage_type(local_filename)
+    data = predictImageData_damage_type(s3_bucket, s3_key)
 
     response = app.response_class(
         response=json.dumps(data),
@@ -99,4 +111,4 @@ def predict_damage_type():
     )
     return response
 
-app.run()
+app.run(port=6000)

@@ -7,7 +7,8 @@ import time
 import glob
 from IPython.display import display
 import json
-
+import boto3
+from botocore.exceptions import ClientError
 
 from six import BytesIO
 
@@ -25,13 +26,14 @@ os.environ['AWS_SECRET_ACCESS_KEY'] = 'K7YgRnpH0xvicuGwTNKcUMK2PswG497aoAok6gSp'
 os.environ['AWS_REGION'] = 'ap-south-1';
 os.environ['S3_USE_HTTPS'] = '1';
 os.environ['S3_VERIFY_SSL'] = '1';
-def load_image_into_numpy_array(path):
-  img_data = tf.io.gfile.GFile(path, 'rb').read()
 
-  image = Image.open(BytesIO(img_data))
-  (im_width, im_height) = image.size
-  return np.array(image.getdata()).reshape(
-      (im_height, im_width, 3)).astype(np.uint8)
+s3 = boto3.client('s3')
+def load_image_into_numpy_array(s3_bucket, s3_key):
+    response = s3.get_object(Bucket=s3_bucket, Key=s3_key)
+    img = Image.open(BytesIO(response['Body'].read()))
+    (im_width, im_height) = img.size
+    return np.array(img.getdata()).reshape((im_height, im_width, 3)).astype(np.uint8)
+
 
 def run_inference_for_single_image(model, image):
   image = np.asarray(image)
