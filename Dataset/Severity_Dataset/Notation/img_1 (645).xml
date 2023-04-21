@@ -1,0 +1,26 @@
+<annotation>
+	<folder>test</folder>
+	<filename>img_1 (645).jpg</filename>
+	<path>C:\IIT\FYP\DataSet\dataset_severity_17.04.2023\test\img_1 (645).jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>590</width>
+		<height>1215</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>severe</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>376</xmin>
+			<ymin>150</ymin>
+			<xmax>514</xmax>
+			<ymax>818</ymax>
+		</bndbox>
+	</object>
+</annotation>

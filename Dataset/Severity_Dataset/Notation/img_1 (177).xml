@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>img_1 (177).jpg</filename>
+	<path>C:\IIT\FYP\DataSet\dataset_severity_17.04.2023\train\img_1 (177).jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1170</width>
+		<height>2080</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>minor</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>383</xmin>
+			<ymin>182</ymin>
+			<xmax>806</xmax>
+			<ymax>839</ymax>
+		</bndbox>
+	</object>
+</annotation>
