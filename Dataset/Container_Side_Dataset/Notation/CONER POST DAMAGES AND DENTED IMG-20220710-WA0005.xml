@@ -1,0 +1,38 @@
+<annotation>
+	<folder>train</folder>
+	<filename>CONER POST DAMAGES AND DENTED IMG-20220710-WA0005.jpg</filename>
+	<path>C:\Users\hirunisi\Desktop\dataset\train\CONER POST DAMAGES AND DENTED IMG-20220710-WA0005.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1600</width>
+		<height>721</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>left_side</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>562</xmin>
+			<ymin>95</ymin>
+			<xmax>1437</xmax>
+			<ymax>650</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>front_side</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>306</xmin>
+			<ymin>112</ymin>
+			<xmax>547</xmax>
+			<ymax>632</ymax>
+		</bndbox>
+	</object>
+</annotation>

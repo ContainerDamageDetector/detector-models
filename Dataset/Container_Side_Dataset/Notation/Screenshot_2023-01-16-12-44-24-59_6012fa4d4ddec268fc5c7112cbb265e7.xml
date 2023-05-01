@@ -1,0 +1,26 @@
+<annotation>
+	<folder>test</folder>
+	<filename>Screenshot_2023-01-16-12-44-24-59_6012fa4d4ddec268fc5c7112cbb265e7.jpg</filename>
+	<path>C:\Users\hirunisi\Desktop\dataset\test\Screenshot_2023-01-16-12-44-24-59_6012fa4d4ddec268fc5c7112cbb265e7.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>720</width>
+		<height>660</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>rear_side</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>59</xmin>
+			<ymin>31</ymin>
+			<xmax>631</xmax>
+			<ymax>608</ymax>
+		</bndbox>
+	</object>
+</annotation>

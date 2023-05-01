@@ -1,0 +1,38 @@
+<annotation>
+	<folder>train</folder>
+	<filename>dent IMG-20220716-WA0021.jpg</filename>
+	<path>C:\Users\hirunisi\Desktop\dataset\train\dent IMG-20220716-WA0021.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>780</width>
+		<height>1040</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>front_side</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>371</xmin>
+			<ymin>248</ymin>
+			<xmax>725</xmax>
+			<ymax>818</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>right_side</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1</xmin>
+			<ymin>250</ymin>
+			<xmax>382</xmax>
+			<ymax>831</ymax>
+		</bndbox>
+	</object>
+</annotation>

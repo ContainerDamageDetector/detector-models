@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>BULGE OUT DENTS IMG-20211118-WA0031.jpg</filename>
+	<path>C:\Users\hirunisi\Desktop\dataset\train\BULGE OUT DENTS IMG-20211118-WA0031.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1156</width>
+		<height>867</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>left_side</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1</xmin>
+			<ymin>180</ymin>
+			<xmax>1107</xmax>
+			<ymax>595</ymax>
+		</bndbox>
+	</object>
+</annotation>

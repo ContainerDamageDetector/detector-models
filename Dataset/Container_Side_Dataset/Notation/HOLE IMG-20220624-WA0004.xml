@@ -1,0 +1,38 @@
+<annotation>
+	<folder>train</folder>
+	<filename>HOLE IMG-20220624-WA0004.jpg</filename>
+	<path>C:\Users\hirunisi\Desktop\dataset\train\HOLE IMG-20220624-WA0004.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1600</width>
+		<height>1201</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>top_side</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1</xmin>
+			<ymin>382</ymin>
+			<xmax>1592</xmax>
+			<ymax>646</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>right_side</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>6</xmin>
+			<ymin>495</ymin>
+			<xmax>1587</xmax>
+			<ymax>980</ymax>
+		</bndbox>
+	</object>
+</annotation>

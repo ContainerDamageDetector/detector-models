@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>DENTED &amp; BULGE OUT IMG-20220719-WA0028.jpg</filename>
+	<path>C:\Users\hirunisi\Desktop\dataset\train\DENTED &amp; BULGE OUT IMG-20220719-WA0028.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1600</width>
+		<height>1200</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>right_side</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1</xmin>
+			<ymin>24</ymin>
+			<xmax>1592</xmax>
+			<ymax>913</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>Cut_4.jpg</filename>
+	<path>C:\Users\hirunisi\Desktop\dataset\train\Cut_4.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>774</width>
+		<height>1032</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>front_side</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>48</xmin>
+			<ymin>109</ymin>
+			<xmax>687</xmax>
+			<ymax>878</ymax>
+		</bndbox>
+	</object>
+</annotation>

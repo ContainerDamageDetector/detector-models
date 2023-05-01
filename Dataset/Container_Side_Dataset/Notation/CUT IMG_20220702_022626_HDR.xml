@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>CUT IMG_20220702_022626_HDR.jpg</filename>
+	<path>C:\Users\hirunisi\Desktop\dataset\train\CUT IMG_20220702_022626_HDR.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>2080</width>
+		<height>1560</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>top_side</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1</xmin>
+			<ymin>1</ymin>
+			<xmax>1567</xmax>
+			<ymax>1398</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,38 @@
+<annotation>
+	<folder>train</folder>
+	<filename>dent WhatsApp Image 2022-07-19 at 2.16.25 PM.jpeg</filename>
+	<path>C:\Users\hirunisi\Desktop\dataset\train\dent WhatsApp Image 2022-07-19 at 2.16.25 PM.jpeg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>606</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>right_side</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1</xmin>
+			<ymin>93</ymin>
+			<xmax>1187</xmax>
+			<ymax>465</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>bottom_side</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>5</xmin>
+			<ymin>373</ymin>
+			<xmax>1170</xmax>
+			<ymax>606</ymax>
+		</bndbox>
+	</object>
+</annotation>

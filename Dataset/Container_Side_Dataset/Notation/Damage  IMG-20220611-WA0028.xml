@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>Damage	IMG-20220611-WA0028.jpg</filename>
+	<path>C:\Users\hirunisi\Desktop\dataset\train\Damage	IMG-20220611-WA0028.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1040</width>
+		<height>780</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>left_side</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1</xmin>
+			<ymin>25</ymin>
+			<xmax>1007</xmax>
+			<ymax>780</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>BULGE OUT IMG-20220708-WA0020.jpg</filename>
+	<path>C:\Users\hirunisi\Desktop\dataset\train\BULGE OUT IMG-20220708-WA0020.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1200</width>
+		<height>1600</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>left_side</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>203</xmin>
+			<ymin>1</ymin>
+			<xmax>1200</xmax>
+			<ymax>1240</ymax>
+		</bndbox>
+	</object>
+</annotation>

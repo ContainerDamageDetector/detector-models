@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>Dented_21.jpg</filename>
+	<path>C:\Users\hirunisi\Desktop\dataset\train\Dented_21.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>768</width>
+		<height>1024</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>corner_post</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>22</xmin>
+			<ymin>1</ymin>
+			<xmax>428</xmax>
+			<ymax>843</ymax>
+		</bndbox>
+	</object>
+</annotation>

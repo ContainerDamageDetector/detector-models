@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>IMG_20230117_011857_HDR.jpg</filename>
+	<path>C:\Users\hirunisi\Desktop\dataset\train\IMG_20230117_011857_HDR.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1170</width>
+		<height>2080</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>front_side</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>12</xmin>
+			<ymin>31</ymin>
+			<xmax>1170</xmax>
+			<ymax>1170</ymax>
+		</bndbox>
+	</object>
+</annotation>

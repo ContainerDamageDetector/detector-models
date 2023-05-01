@@ -9,6 +9,8 @@ import xgboost as xgb
 from urllib.parse import urlparse
 from xgboost import XGBRegressor
 from matplotlib import style
+from sklearn.ensemble import RandomForestRegressor
+import pickle
 style.use('seaborn')
 
 from inferenceutils import *
@@ -376,8 +378,13 @@ def predictRecoverPrice(s3_bucket, s3_key, bulged_dice=None, cut_dice=None, dent
         print('corner_post', corner_post)
         print('unknown_container_side', unknown_container_side)
 
-    model = xgb.Booster()
-    model.load_model('recover_price/saved_model.model')
+
+
+    # model = xgb.Booster()
+    # model.load_model('recover_price/saved_model.model')
+    with open('recover_price/random_forest_model.pkl', 'rb') as f:
+        model = pickle.load(f)
+
 
     data = {'bulged_dice': bulged_dice, 'cut_dice': cut_dice, 'dented_dice': dented_dice, 'hole_dice': hole_dice,
             'rust_dice': rust_dice, 'bulged': bulged, 'cut': cut, 'dented': dented, 'hole': hole, 'rust': rust,
@@ -387,9 +394,9 @@ def predictRecoverPrice(s3_bucket, s3_key, bulged_dice=None, cut_dice=None, dent
             'corner_post': corner_post, 'unknown_container_side': unknown_container_side}
     index = [0]
     new_df = pd.DataFrame(data, index)
-    new_data_matrix = xgb.DMatrix(data=new_df)
+    # new_data_matrix = xgb.DMatrix(data=new_df)
 
-    new_pred = model.predict(new_data_matrix)
+    new_pred = model.predict(new_df)
     print("The container price : ", new_pred)
 
     return json.dumps(new_pred.tolist())

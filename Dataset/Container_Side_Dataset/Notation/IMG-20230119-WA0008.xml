@@ -1,0 +1,26 @@
+<annotation>
+	<folder>test</folder>
+	<filename>IMG-20230119-WA0008.jpg</filename>
+	<path>C:\Users\hirunisi\Desktop\dataset\test\IMG-20230119-WA0008.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>756</width>
+		<height>1600</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>front_side</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>4</xmin>
+			<ymin>341</ymin>
+			<xmax>727</xmax>
+			<ymax>1041</ymax>
+		</bndbox>
+	</object>
+</annotation>

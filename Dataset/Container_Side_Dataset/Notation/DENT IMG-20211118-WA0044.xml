@@ -1,0 +1,38 @@
+<annotation>
+	<folder>train</folder>
+	<filename>DENT IMG-20211118-WA0044.jpg</filename>
+	<path>C:\Users\hirunisi\Desktop\dataset\train\DENT IMG-20211118-WA0044.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1200</width>
+		<height>1600</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>front_side</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1</xmin>
+			<ymin>1</ymin>
+			<xmax>561</xmax>
+			<ymax>1535</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>left_side</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>552</xmin>
+			<ymin>6</ymin>
+			<xmax>1200</xmax>
+			<ymax>1600</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>Corner Cast damage unit IMG-20220713-WA0011.jpg</filename>
+	<path>C:\Users\hirunisi\Desktop\dataset\train\Corner Cast damage unit IMG-20220713-WA0011.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1200</width>
+		<height>1600</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>corner_post</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>311</xmin>
+			<ymin>1</ymin>
+			<xmax>846</xmax>
+			<ymax>881</ymax>
+		</bndbox>
+	</object>
+</annotation>

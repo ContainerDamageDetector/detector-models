@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>Dented_18.jpg</filename>
+	<path>C:\Users\hirunisi\Desktop\dataset\train\Dented_18.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>867</width>
+		<height>1156</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>rear_side</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1</xmin>
+			<ymin>1</ymin>
+			<xmax>806</xmax>
+			<ymax>912</ymax>
+		</bndbox>
+	</object>
+</annotation>
