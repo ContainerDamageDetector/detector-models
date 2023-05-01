@@ -16,19 +16,24 @@ style.use('seaborn')
 from inferenceutils import *
 
 output_directory = 'inference_graph'
+
+# label map file paths for respective models
 labelmap_path_damage_type = 'damage_type_model/content/labelmap_damage_type.pbtxt'
 labelmap_path_severity_type = 'severity_type_model/content/labelmap_severity.pbtxt'
 labelmap_path_container_sides = 'container_sides_model/content/labelmap_container_side.pbtxt'
 
+# Creating category index from labelmap
 category_index_damage_type = label_map_util.create_category_index_from_labelmap(labelmap_path_damage_type, use_display_name=True)
 category_index_severity_type = label_map_util.create_category_index_from_labelmap(labelmap_path_severity_type, use_display_name=True)
 category_index_container_sides = label_map_util.create_category_index_from_labelmap(labelmap_path_container_sides, use_display_name=True)
 tf.keras.backend.clear_session()
 
+# Loads saved model for respective models
 model_damage_type = tf.saved_model.load(f'damage_type_model/content/{output_directory}/saved_model')
 model_severity_type = tf.saved_model.load(f'severity_type_model/content/{output_directory}/saved_model')
 model_container_sides = tf.saved_model.load(f'container_sides_model/content/{output_directory}/saved_model')
 
+# function for predicting damage type
 def predictImageData_damage_type(s3_bucket, s3_key):
     image_np = load_image_into_numpy_array(s3_bucket, s3_key)
     output_dict = run_inference_for_single_image(model_damage_type, image_np)
@@ -68,6 +73,7 @@ def predictImageData_damage_type(s3_bucket, s3_key):
     return data
 
 
+# function for predicting the severity type
 def predictImageData_severity_type(s3_bucket, s3_key):
     image_np = load_image_into_numpy_array(s3_bucket, s3_key)
     output_dict = run_inference_for_single_image(model_severity_type, image_np)
@@ -92,6 +98,7 @@ def predictImageData_severity_type(s3_bucket, s3_key):
             data = class_name_severity
     return data
 
+# function for predicting container sides
 def predictImageData_container_side(s3_bucket, s3_key):
 
     image_np = load_image_into_numpy_array(s3_bucket, s3_key)
@@ -125,7 +132,7 @@ def predictImageData_container_side(s3_bucket, s3_key):
         "regions": data
     }
 
-
+# function for predicting recover price
 def predictRecoverPrice(s3_bucket, s3_key, bulged_dice=None, cut_dice=None, dented_dice=None, hole_dice=None, rust_dice=None,
                         bulged=None, cut=None, dented=None, hole=None, rust=None, minor=None, moderate=None,
                         severe=None, left_side=None, right_side=None, front_side=None, rear_side=None, top_side=None,
@@ -339,8 +346,8 @@ def predictRecoverPrice(s3_bucket, s3_key, bulged_dice=None, cut_dice=None, dent
         rust_dice = 0.0
         unknown_damage_type = 1
 
-    else:
-        print("*******")
+    # else:
+    #     print("*******")
 
     if (class_name_severity == 'minor'):
         minor = 1
@@ -477,9 +484,12 @@ def predictRecoverPrice(s3_bucket, s3_key, bulged_dice=None, cut_dice=None, dent
 
     # model = xgb.Booster()
     # model.load_model('recover_price/saved_model.model')
+
+    # Load pickled random forest model file
     with open('recover_price/random_forest_model.pkl', 'rb') as f:
         model = pickle.load(f)
 
+    # assigning the variables taken from previous executions
     data = {'bulged_dice': bulged_dice, 'cut_dice': cut_dice, 'dented_dice': dented_dice, 'hole_dice': hole_dice,
             'rust_dice': rust_dice, 'bulged': bulged, 'cut': cut, 'dented': dented, 'hole': hole, 'rust': rust,
             'unknown_damage_type': unknown_damage_type, 'minor': minor, 'moderate': moderate, 'severe': severe,
@@ -490,6 +500,7 @@ def predictRecoverPrice(s3_bucket, s3_key, bulged_dice=None, cut_dice=None, dent
     new_df = pd.DataFrame(data, index)
     # new_data_matrix = xgb.DMatrix(data=new_df)
 
+    # Make predictions using the model
     new_pred = model.predict(new_df)
     print("The container price : ", new_pred)
 
@@ -508,6 +519,7 @@ def home():
     return "<h1>DETECTOR MODEL</h1>"
 
 
+# API endpoint for predicting damage type
 @app.route('/predictDamageType', methods=['POST'])
 def predict_damage_type():
     s3_bucket = 'container-damage-detector'
@@ -524,6 +536,7 @@ def predict_damage_type():
     return response
 
 
+# API endpoint for predicting severity type
 @app.route('/predictSevereType', methods=['POST'])
 def predict_severity_type():
     s3_bucket = 'container-damage-detector'
@@ -539,6 +552,7 @@ def predict_severity_type():
     )
     return response
 
+# API endpoint for predicting container sides
 @app.route('/predictContainerSides', methods=['POST'])
 def predict_container_side():
     s3_bucket = 'container-damage-detector'
@@ -554,6 +568,7 @@ def predict_container_side():
     )
     return response
 
+# API endpoint for predicting estimate recover price
 @app.route('/estimateRecoverPrice', methods=['POST'])
 def estimate_recover_price():
     s3_bucket = 'container-damage-detector'

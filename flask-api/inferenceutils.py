@@ -28,6 +28,8 @@ os.environ['S3_USE_HTTPS'] = '1';
 os.environ['S3_VERIFY_SSL'] = '1';
 
 s3 = boto3.client('s3')
+
+# loads an image from an Amazon S3 bucket and converts it into a numpy array
 def load_image_into_numpy_array(s3_bucket, s3_key):
     response = s3.get_object(Bucket=s3_bucket, Key=s3_key)
     img = Image.open(BytesIO(response['Body'].read()))
@@ -35,6 +37,7 @@ def load_image_into_numpy_array(s3_bucket, s3_key):
     return np.array(img.getdata()).reshape((im_height, im_width, 3)).astype(np.uint8)
 
 
+#  runs the inference for a single image using a given TensorFlow model
 def run_inference_for_single_image(model, image):
   image = np.asarray(image)
   # The input needs to be a tensor, convert it using `tf.convert_to_tensor`.
