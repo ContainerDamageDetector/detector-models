@@ -21,8 +21,8 @@ from object_detection.utils import ops as utils_ops
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as vis_util
 
-os.environ['AWS_ACCESS_KEY_ID'] = 'AKIA5OSYVVF3F5WPQHEY';
-os.environ['AWS_SECRET_ACCESS_KEY'] = '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';
+os.environ['AWS_ACCESS_KEY_ID'] = '';
+os.environ['AWS_SECRET_ACCESS_KEY'] = '';
 os.environ['AWS_REGION'] = 'ap-south-1';
 os.environ['S3_USE_HTTPS'] = '1';
 os.environ['S3_VERIFY_SSL'] = '1';
